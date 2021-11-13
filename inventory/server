@@ -1,0 +1,2 @@
+[control_plane]
+controlserver ansible_host=192.168.178.64

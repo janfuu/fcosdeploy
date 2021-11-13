@@ -1,0 +1,10 @@
+- name: Get releases json # we could set the stream (stable/testing) here
+  uri:
+    url: https://builds.coreos.fedoraproject.org/streams/stable.json
+  register: releases
+
+- name: Get latest version
+  set_fact:
+    fcos_latest: "{{ releases.json.architectures.x86_64.artifacts.qemu.release }}"
+    fcos_latest_url: "{{ releases.json.architectures.x86_64.artifacts.qemu.formats['qcow2.xz'].disk.location }}"
+

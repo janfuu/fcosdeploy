@@ -1,0 +1,24 @@
+- name: Ensure directory is in place
+  file:
+    state: directory
+    path: "{{ domain_path }}"
+    mode: '1777' # yes, globally read/writeable
+    setype: virt_image_t
+
+- name: Check image
+  stat:
+    path: "{{ domain_path }}/{{ image_name }}"
+  register: image_status 
+  
+- name: Block to download and unpack image
+  when: not image_status.stat.exists
+  block:
+    - name: Download qcow2 image
+      get_url:
+        url: "{{ fcos_latest_url }}"
+        dest: "{{ domain_path }}"
+
+    - name: Uncompress the image
+      command:  # ansible can archive xz, but not unarchive it. WTF?
+        cmd: "unxz {{ image_name }}.xz"
+        chdir: "{{ domain_path }}"

@@ -1,0 +1,19 @@
+---
+- name: Install
+  hosts: localhost
+  gather_facts: false
+  vars:
+    upgrade: true
+  
+  tasks:
+    - include_tasks: tasks/getversion.yaml
+
+    - name: update version if upgrade is true
+      set_fact:
+        fcos_version: "{{ fcos_latest }}"
+        fcos_url: "{{ fcos_latest_url }}"
+      when: 
+        - fcos_latest != fcos_version
+        - upgrade == true
+
+ 
