@@ -5,3 +5,4 @@ Nothing to see here (for now). Just some experiments deploying Fedora CoreOS for
 
 https://docs.fedoraproject.org/en-US/fedora-coreos/provisioning-libvirt/  
 https://typhoon.psdn.io/fedora-coreos/bare-metal/  
+https://github.com/nccurry/libvirt_coreos_vm
